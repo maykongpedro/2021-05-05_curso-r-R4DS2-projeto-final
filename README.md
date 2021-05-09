@@ -8,24 +8,27 @@
 
 The goal of 2021-05-05\_curso-r-R4DS2-projeto-final is to …
 
-\*\* Secretaria de Segurança Pública (SSP) de São Paulo \*\*  
-Descrição: número de ocorrências mensais de diversos crimes de 2002 a
-2020 (abril) no nível delegacia para todo o Estado de São Paulo.
+**Secretaria de Segurança Pública (SSP) de São Paulo** Descrição: número
+de ocorrências mensais de diversos crimes de 2002 a 2020 (abril) no
+nível delegacia para todo o Estado de São Paulo.
 
-\# Principais variáveis:  
-- Número de ocorrências mensais (furtos, roubos, homicídios etc)   
-- Delegacia onde a ocorrência foi registrada  
-- Município e região do estado da delegacia  
-- Mês e ano
+# Principais variáveis:
 
-\# Principais características  
-- Séries temporais  
-- Dados geográficos  
-- Oportunidade para construção de mapas
+-   Número de ocorrências mensais (furtos, roubos, homicídios etc)   
+-   Delegacia onde a ocorrência foi registrada  
+-   Município e região do estado da delegacia  
+-   Mês e ano
 
-\# Sugestões de análises  
-- Visualizar as séries de criminalidade  
-- Avaliar se os níveis de criminalidade mudaram durante a quarentena
+# Principais características
+
+-   Séries temporais  
+-   Dados geográficos  
+-   Oportunidade para construção de mapas
+
+# Sugestões de análises
+
+-   Visualizar as séries de criminalidade  
+-   Avaliar se os níveis de criminalidade mudaram durante a quarentena
 
 What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
