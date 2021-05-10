@@ -77,7 +77,7 @@ ssp_pivot_categorico <-
             stringr::str_detect(crime_cometido, "estupro") ~ "estupro",
             stringr::str_detect(crime_cometido, "furto") ~ "furto",
             stringr::str_detect(crime_cometido, "hom") ~ "homicido",
-            stringr::str_detect(crime_cometido, "lesao") ~ "lesão_corporal",
+            stringr::str_detect(crime_cometido, "lesao") ~ "lesão corporal",
             stringr::str_detect(crime_cometido, "latro") ~ "latrocinio",
             stringr::str_detect(crime_cometido, "roubo") ~ "roubo",
             TRUE ~ crime_cometido
@@ -112,30 +112,59 @@ ssp_pivot_categorico %>%
 
 
 # Quantidade total de crimes por ano excluindo 2020 (pois só tem até abril)
-nota_rodape <- "Dataviz: @maykongpedro | Fonte: SSP (Dados organizados pela Curso-R)"
-eixo_x_breaks <- seq(from = 2002, to = 2019, by = 1)
+source("./R/1-ggplot-grafico-de-barras.R")
+ssp_pivot_categorico %>% 
+    dplyr::filter(ano != 2020) %>% 
+    dplyr::group_by(ano, categoria) %>% 
+    dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
+    
+    grafico_de_barras(x = ano, 
+                      y = total_mil, 
+                      preenchimento = categoria,
+                      breaks_eixo_x = seq(from = 2002, to = 2019, by = 1),
+                      titulo = "Histórico de ocorrências por categoria de crime no estado de São Paulo (Mil)",
+                      subtitulo = NULL,
+                      tit_preenchimento = "Categoria de crime")
+    
+
+# Exibindo as categorias com mais de 50mil ocorrências
+ssp_pivot_categorico %>% 
+    dplyr::filter(ano != 2020) %>% 
+    dplyr::group_by(ano, categoria) %>% 
+    dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
+    dplyr::filter(total_mil > 50) %>% 
+    ggplot2::ggplot(ggplot2::aes(x = ano, y = total_mil, colour = categoria)) +
+    ggplot2::geom_line(size = 1.2, show.legend = FALSE) +
+    ggplot2::scale_x_continuous(breaks = seq(from = 2002, to = 2019, by = 1)) +
+    ggplot2::scale_colour_viridis_d(direction = -1) +
+    directlabels::geom_dl(ggplot2::aes(label = categoria) , method = "smart.grid") +
+    ggplot2::theme_minimal() +
+    ggplot2::theme(plot.title = ggplot2::element_text(face = "bold", hjust = 0.5),
+                   plot.subtitle = ggplot2::element_text(hjust = 0.5),
+                   axis.line.x = ggplot2::element_line(size = 1),
+                   plot.caption = ggplot2::element_text(hjust = 1.5),
+                   plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm"))
 
 
 ssp_pivot_categorico %>% 
     dplyr::filter(ano != 2020) %>% 
     dplyr::group_by(ano, categoria) %>% 
     dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
+    dplyr::filter(total_mil > 50) %>%
     
-    ggplot2::ggplot() +
-    ggplot2::geom_col(ggplot2::aes(x = ano, y = total_mil, fill = categoria)) +
-    ggplot2::scale_x_continuous(breaks = eixo_x) +
-    ggplot2::scale_y_continuous(expand = ggplot2::expansion(),
-                                limits = c(0, 1300)) +
-    ggplot2::scale_fill_viridis_d(direction = -1) +
-    ggplot2::labs(x = "Ano", y = "Total de ocorrências (Mil)", 
-                  fill = "Categoria de crime", 
-                  caption = nota_rodape) +
-    ggplot2::ggtitle("Histórico de ocorrências por categoria de crime no estado de São Paulo (Mil)") +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(plot.title = ggplot2::element_text(face = "bold", hjust = 0.5),
-                   axis.line.x = ggplot2::element_line(size = 1),
-                   plot.caption = ggplot2::element_text(hjust = 1.5),
-                   plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm"))
+    grafico_de_linhas(x = ano,
+                      y = total_mil,
+                      cores = categoria,
+                      breaks_eixo_x = seq(from = 2002, to = 2019, by = 1),
+                      titulo = "Histórico de ocorrências por categoria de crime no estado de São Paulo (Mil)",
+                      subtitulo = "Categorias com mais de 50mil ocorrências")
+    
+
+
+#last.bumpup
+
+
+
 
 
 
@@ -143,26 +172,18 @@ ssp_pivot_categorico %>%
 # comparar com soma de ocorrências dos anos anteriores
 # Como a base vai somente até abril de 2020, vou selecionar apenas os 4 meses
 # iniciais de cada ano para poder fazer o comparativo
-eixo_x_breaks <- seq(from = 2002, to = 2020, by = 1)
 ssp_pivot_categorico %>% 
     dplyr::filter(mes %in% c(1, 2, 3, 4)) %>% 
     dplyr::group_by(ano, categoria) %>% 
     dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
     
-    ggplot2::ggplot() +
-    ggplot2::geom_col(ggplot2::aes(x = ano, y = total_mil, fill = categoria)) +
-    ggplot2::scale_x_continuous(breaks = eixo_x) +
-    ggplot2::scale_y_continuous(expand = ggplot2::expansion()) +
-    ggplot2::scale_fill_viridis_d(direction = -1) +
-    ggplot2::labs(x = "Ano", y = "Total de ocorrências (Mil)", 
-                  fill = "Categoria de crime", 
-                  caption = nota_rodape) +
-    ggplot2::ggtitle("Histórico ocorrências por categoria de crime no estado de São Paulo (Mil)") +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(plot.title = ggplot2::element_text(face = "bold", hjust = 0.5),
-                   axis.line.x = ggplot2::element_line(size = 1),
-                   plot.caption = ggplot2::element_text(hjust = 1.5))
-
+    grafico_de_barras(x = ano,
+                      y = total_mil,
+                      preenchimento = categoria,
+                      breaks_eixo_x = seq(from = 2002, to = 2020, by = 1),
+                      titulo = "Histórico de ocorrências por categoria de crime no estado de São Paulo (Mil)",
+                      subtitulo = "Apenas os 4 primeiros meses de cada ano",
+                      tit_preenchimento = "Categoria de crime")
 
 
 
