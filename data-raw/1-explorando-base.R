@@ -43,7 +43,6 @@ ssp_pivot %>%
     dplyr::filter(is.na(ocorrencias))
 
 
-
 # Quantos crimes temos dentro da base
 ssp_pivot %>% 
     dplyr::select(crime_cometido) %>% 
@@ -51,18 +50,38 @@ ssp_pivot %>%
     dplyr::count()
 
 
+# Gerar uma categoria simplificada para os crimes
+ssp_pivot_categorico <-
+    ssp_pivot %>%
+    dplyr::mutate(
+        categoria = dplyr::case_when(
+            stringr::str_detect(crime_cometido, "estupro") ~ "estupro",
+            stringr::str_detect(crime_cometido, "furto") ~ "furto",
+            stringr::str_detect(crime_cometido, "hom") ~ "homicido",
+            stringr::str_detect(crime_cometido, "lesao") ~ "lesão_corporal",
+            stringr::str_detect(crime_cometido, "latro") ~ "latrocinio",
+            TRUE ~ crime_cometido
+    )) %>%
+    View()
+
+
+
+
+
+
 # Qual o crime mais cometido dentro dessa base histórica?
-ssp_pivot %>% 
+ssp_pivot_categorico %>% 
     dplyr::group_by(crime_cometido) %>% 
     dplyr::summarise(quantidade_total = sum(ocorrencias)) %>% 
     dplyr::arrange(dplyr::desc(quantidade_total))
 
 
 # Crimes cometidos por ano
-ssp_pivot %>% 
+ssp_pivot_categorico %>% 
     dplyr::group_by(ano, crime_cometido) %>% 
     dplyr::summarise(quantidade_total = sum(ocorrencias)) %>% 
     dplyr::arrange(ano,dplyr::desc(quantidade_total))
+
 
 
 
@@ -81,4 +100,7 @@ ssp_pivot %>%
 
 
 
+base_muni_sp <- 
+    geobr::read_municipality() %>% 
+    dplyr::filter(abbrev_state == "SP")
 
