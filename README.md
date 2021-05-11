@@ -79,12 +79,6 @@ vítimas de alguns crimes, essas foram excluídas da análise como um todo.
 
 ## Distribuição espacial das ocorrências
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
-
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-
 ## Avaliação de criminalidade durante a quarentena
 
 `devtools::build_readme()` i
-
-![](README_files/figure-gfm/pressure-1.png)<!-- -->

@@ -4,12 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+
 
 # 2021-05-05_curso-r-R4DS2-projeto-final
 
@@ -19,10 +14,7 @@ knitr::opts_chunk$set(
 
 # Introdução
 
-```{r message=TRUE, warning=TRUE, include=FALSE}
-library(magrittr, include.only = "%>%")
 
-```
 
 ## Motivação
 
@@ -76,16 +68,10 @@ Além disso, dentro da base constam colunas onde são informadas as vítimas de 
 
 ## Distribuição espacial das ocorrências
 
-```{r echo=FALSE}
 
-knitr::include_graphics("./docs/mapa_geral.svg")
-
-```
 
 ## Avaliação de criminalidade durante a quarentena
 
 `devtools::build_readme()` i
 
-```{r pressure, echo = FALSE}
 
-```
