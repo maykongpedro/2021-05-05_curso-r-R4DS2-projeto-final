@@ -81,7 +81,7 @@ Além disso, dentro da base constam colunas onde são informadas as vítimas de 
 
 ```
 
-![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/docs/mapa_geral.png)
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/docs/mapa_geral_cm.png)
 
 ## Avaliação de criminalidade durante a quarentena
 

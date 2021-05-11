@@ -76,6 +76,9 @@ ssp_2019_shp_tx_geral <-
     dplyr::left_join(y = ssp2019_taxas_geral, by = c("code_muni" = "codigo_ibge")) %>% 
     dplyr::select(-municipio_nome) # retirar coluna duplicada
 
+# Exportar essa base
+ssp_2019_shp_tx_geral %>% 
+    saveRDS("./data/ssp_2019_shp_tx_geral.rds")
 
 # Fazer join com o shape (com categorias de crimes)
 ssp_2019_shp_tx_categoria <-
@@ -83,6 +86,9 @@ ssp_2019_shp_tx_categoria <-
     dplyr::left_join(y = ssp2019_taxas_categoria, by = c("code_muni" = "codigo_ibge")) %>% 
     dplyr::select(-municipio_nome) # retirar coluna duplicada
 
+# Exportar essa base
+ssp_2019_shp_tx_categoria %>% 
+    saveRDS("./data/ssp_2019_shp_tx_categoria.rds")
 
 # Mapas -------------------------------------------------------------------
 
@@ -92,14 +98,17 @@ ssp_2019_shp_tx_categoria <-
 
 #  Distribuição das categorias de crimes por taxa de 100mil habitante
 
-
-ssp_2019_shp_tx_geral %>%  
+source("./R/3-ggplot-sf-mapa-municipios.R",encoding = "UTF-8")
+mapa_geral <-
+    ssp_2019_shp_tx_geral %>%  
     dplyr::filter(!is.na(total_tx)) %>% 
     
     mapa_municipios(shape_geral = base_muni,
                     valores = total_tx,
                     titulo = "Distribuição geográfica de ocorrências de crimes no estado de São Paulo em 2019",
                     subtitulo = "*Apenas cidades com mais de 100mil habitantes - Todos as categorias de crimes*")
+
+
 
 ssp_2019_shp_tx_categoria %>%  
     dplyr::filter(!is.na(total_tx)) %>% 
@@ -111,6 +120,20 @@ ssp_2019_shp_tx_categoria %>%
                           subtitulo = "*Apenas cidades com mais de 100mil habitantes - Dividido em categorias de crimes*"
     )
 
+mapa_geral
+
+ggplot2::ggsave(
+        plot = mapa_geral,
+        "./docs/mapa_geral.png",
+        width = 24,
+        height = 15,
+        units = "cm",
+        dpi = 300
+    )
 
 
-
+ggplot2::ggsave(plot = mapa_geral,
+                path = "./docs",
+                filename = "mapa_geral_cm.png",
+                height = grid::unit(8, units = "cm"),
+                width = grid::unit(12, units = "cm"))
