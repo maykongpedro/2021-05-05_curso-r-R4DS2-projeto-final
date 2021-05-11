@@ -109,8 +109,9 @@ mapa_geral <-
                     subtitulo = "*Apenas cidades com mais de 100mil habitantes - Todos as categorias de crimes*")
 
 
-
-ssp_2019_shp_tx_categoria %>%  
+source("./R/4-ggplot-sf-mapa-municipios-facet.R",encoding = "UTF-8")
+mapa_categorias <- 
+    ssp_2019_shp_tx_categoria %>%  
     dplyr::filter(!is.na(total_tx)) %>% 
     
     mapa_municipios_facet(shape_geral = base_muni,
@@ -120,7 +121,9 @@ ssp_2019_shp_tx_categoria %>%
                           subtitulo = "*Apenas cidades com mais de 100mil habitantes - Dividido em categorias de crimes*"
     )
 
-mapa_geral
+
+
+# Salvando gráficos -------------------------------------------------------
 
 ggplot2::ggsave(
         plot = mapa_geral,
@@ -131,9 +134,18 @@ ggplot2::ggsave(
         dpi = 300
     )
 
+ggplot2::ggsave(
+    plot = mapa_categorias,
+    "./docs/mapa_categorias.png",
+    width = 24,
+    height = 15,
+    units = "cm",
+    dpi = 300
+)
 
-ggplot2::ggsave(plot = mapa_geral,
-                path = "./docs",
-                filename = "mapa_geral_cm.png",
-                height = grid::unit(8, units = "cm"),
-                width = grid::unit(12, units = "cm"))
+
+# ggplot2::ggsave(plot = mapa_geral,
+#                 path = "./docs",
+#                 filename = "mapa_geral_cm.png",
+#                 height = grid::unit(8, units = "cm"),
+#                 width = grid::unit(12, units = "cm"))
