@@ -79,9 +79,13 @@ vítimas de alguns crimes, essas foram excluídas da análise como um todo.
 
 ## Distribuição espacial das ocorrências
 
-![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/docs/mapa_geral_cm.png)
+## Geral
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/docs/mapa_geral.png)
+
+## Por categoria de crime - 2019
+
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/docs/mapa_categorias.png)
 
 ## Avaliação de criminalidade durante a quarentena
 
