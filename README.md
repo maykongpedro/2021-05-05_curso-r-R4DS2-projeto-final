@@ -10,14 +10,14 @@
 
 ## Motivação
 
-Esse repositório tem como movitação servir de entrega para o trabalho
-final de conclusão de curso do Curso: R para Ciência de Dados 2 da Curso
-R.
+Esse repositório tem como motivação servir de entrega para o trabalho
+final de conclusão de curso do [Curso R para Ciência de Dados 2 da Curso
+R](https://curso-r.com/cursos/r4ds-2/).
 
 ## Objetivo
 
-Analisar umas das bases disponibilizadas pelos professores utilizando o
-conhecimento adquirido no curso.
+Analisar umas das bases disponibilizadas pelos professores ou uma base
+própria, utilizando o conhecimento adquirido no curso.
 
 ## Base de dados
 
@@ -34,7 +34,7 @@ As bases são detalhadas abaixo:
 ### SSP
 
 -   Descrição: número de ocorrências mensais de diversos crimes de 2002
-    a 2020 (abril) no nível delegacia para todo o Estado de São Paulo.  
+    a 2020 (abril) no nível delegacia para todo o Estado de São Paulo.
 -   Variáveis:
 -   Fonte: SSP-SP - Dados compilados e organizados pela Curso R.
 
@@ -56,10 +56,12 @@ As bases são detalhadas abaixo:
 # Análises
 
 Como recomendação para a atividade, os seguintes pontos foram analisados
-durante esse trabalho: - Séries de criminalidade  
-- Avaliação sobre os níveis de criminalidade durante a quarentena -
-existe alguma diferença com o restante do histórico? - Distribuição
-espacial das ocorrências de criminalidade.
+durante esse trabalho:
+
+-   Séries de criminalidade
+-   Avaliação sobre os níveis de criminalidade durante a quarentena -
+    existe alguma diferença com o restante do histórico?
+-   Distribuição espacial das ocorrências de criminalidade.
 
 Para facilitar a análise, os crimes contidos dentro da base foram
 classificados pela própria nomenclatura, gerando 6 categorias de crime
@@ -77,12 +79,12 @@ vítimas de alguns crimes, essas foram excluídas da análise como um todo.
 
 ## Distribuição espacial das ocorrências
 
+<img src="README_files/figure-gfm/unnamed-chunk-3-1.png" width="8" height="8" />
+
+<img src="README_files/figure-gfm/unnamed-chunk-4-1.png" width="8" height="10" />
+
 ## Avaliação de criminalidade durante a quarentena
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/master/examples>.
+`devtools::build_readme()` i
 
 ![](README_files/figure-gfm/pressure-1.png)<!-- -->

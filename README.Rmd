@@ -19,13 +19,21 @@ knitr::opts_chunk$set(
 
 # Introdução
 
+```{r message=TRUE, warning=TRUE, include=FALSE}
+library(magrittr, include.only = "%>%")
+
+```
+
 ## Motivação
-Esse repositório tem como movitação servir de entrega para o trabalho final de conclusão de curso do Curso: R para Ciência de Dados 2 da Curso R.
+
+Esse repositório tem como motivação servir de entrega para o trabalho final de conclusão de curso do [Curso R para Ciência de Dados 2 da Curso R](https://curso-r.com/cursos/r4ds-2/).
 
 ## Objetivo
-Analisar umas das bases disponibilizadas pelos professores utilizando o conhecimento adquirido no curso.
+
+Analisar umas das bases disponibilizadas pelos professores ou uma base própria, utilizando o conhecimento adquirido no curso.
 
 ## Base de dados
+
 A base escolhida foi a da **Secretaria de Segurança Pública (SSP) de São Paulo**, uma base tratada pela equipe da Curso R, onde temos o compilado de ocorrências criminais por delegacia, município, ano e mês.
 
 Além dessa base foi utilizado uma planilha com os dados de população estimada para cada município do estado de SP, além do shape dos municípios.
@@ -33,50 +41,84 @@ Além dessa base foi utilizado uma planilha com os dados de população estimada
 As bases são detalhadas abaixo:
 
 ### SSP
-- Descrição: número de ocorrências mensais de diversos crimes de 2002 a 2020 (abril) no nível delegacia para todo o Estado de São Paulo.  
-- Variáveis:
-- Fonte: SSP-SP - Dados compilados e organizados pela Curso R.
 
+-   Descrição: número de ocorrências mensais de diversos crimes de 2002 a 2020 (abril) no nível delegacia para todo o Estado de São Paulo.
+-   Variáveis:
+-   Fonte: SSP-SP - Dados compilados e organizados pela Curso R.
 
 ### População por município
-- Descrição: população estimada para cada município do estado de São Paulo.
-- Variáveis: codigo_ibge, municipio_nome, colunas respectivas para cada ano (2002 a 2020)
-- Fonte: IBGE
 
-### Shape dos municípios 
-- Descrição: _simple feature_ dos municípios do estado de São Paulo.
-- Variáveis: codigo_ibge, municipio_nome, colunas respectivas para cada ano (2002 a 2020)
-- Fonte: IBGE / geobr / RDS gerado pela curso R.
+-   Descrição: população estimada para cada município do estado de São Paulo.
+-   Variáveis: codigo_ibge, municipio_nome, colunas respectivas para cada ano (2002 a 2020)
+-   Fonte: IBGE
 
-  
+### Shape dos municípios
+
+-   Descrição: *simple feature* dos municípios do estado de São Paulo.
+-   Variáveis: codigo_ibge, municipio_nome, colunas respectivas para cada ano (2002 a 2020)
+-   Fonte: IBGE / geobr / RDS gerado pela curso R.
+
 # Análises
+
 Como recomendação para a atividade, os seguintes pontos foram analisados durante esse trabalho:
-- Séries de criminalidade  
-- Avaliação sobre os níveis de criminalidade durante a quarentena - existe alguma diferença com o restante do histórico?
-- Distribuição espacial das ocorrências de criminalidade.
+
+-   Séries de criminalidade
+-   Avaliação sobre os níveis de criminalidade durante a quarentena - existe alguma diferença com o restante do histórico?
+-   Distribuição espacial das ocorrências de criminalidade.
 
 Para facilitar a análise, os crimes contidos dentro da base foram classificados pela própria nomenclatura, gerando 6 categorias de crime que resumem os dados. Essas categorias não tem como pretensão serem corretas se vistas por aspectos do Direito Penal, são apenas simplificações dentro do escopo desse trabalho. A classificação de categoria pode ser verificada na tabela abaixo:
 
 **inser tabela de classificação**
 
-
 Além disso, dentro da base constam colunas onde são informadas as vítimas de alguns crimes, essas foram excluídas da análise como um todo.
 
 ## Séries de criminalidade
 
-
-
 ## Distribuição espacial das ocorrências
 
+```{r echo=FALSE, out.height=8,out.width=8}
+# Ler base
+ssp_2019_shp_tx_geral <- readr::read_rds("./data/ssp_2019_shp_tx_geral.rds")
+base_muni <- readr::read_rds("./data/base_muni_sp.rds")
 
+# Carregar função
+source("R/3-ggplot-sf-mapa-municipios.R")
+
+# Plotar mapa
+ssp_2019_shp_tx_geral %>%  
+    dplyr::filter(!is.na(total_tx)) %>% 
+    
+    mapa_municipios(shape_geral = base_muni,
+                    valores = total_tx,
+                    titulo = "Distribuição geográfica de ocorrências de crimes no estado de São Paulo em 2019",
+                    subtitulo = "*Apenas cidades com mais de 100mil habitantes - Todos as categorias de crimes*")
+
+
+```
+
+```{r echo=FALSE, out.height=10, out.width=8}
+# Ler base
+ssp_2019_shp_tx_categoria <- readr::read_rds("./data/ssp_2019_shp_tx_categoria.rds")
+
+# Carregar função
+source("R/4-ggplot-sf-mapa-municipios-facet.R")
+
+# Plotar mapa
+ssp_2019_shp_tx_categoria %>%  
+    dplyr::filter(!is.na(total_tx)) %>% 
+    
+    mapa_municipios_facet(shape_geral = base_muni,
+                          valores = total_tx,
+                          facet_grupos = categoria,
+                          titulo = "Distribuição geográfica de ocorrências de crimes no estado de São Paulo em 2019",
+                          subtitulo = "*Apenas cidades com mais de 100mil habitantes - Dividido em categorias de crimes*"
+    )
+
+```
 
 ## Avaliação de criminalidade durante a quarentena
 
-
-
-
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
+`devtools::build_readme()` i
 
 ```{r pressure, echo = FALSE}
 plot(pressure)
