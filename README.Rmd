@@ -76,7 +76,7 @@ Além disso, dentro da base constam colunas onde são informadas as vítimas de 
 
 ## Distribuição espacial das ocorrências
 
-```{r echo=FALSE, out.height=8,out.width=8}
+```{r echo=FALSE}
 # Ler base
 ssp_2019_shp_tx_geral <- readr::read_rds("./data/ssp_2019_shp_tx_geral.rds")
 base_muni <- readr::read_rds("./data/base_muni_sp.rds")
@@ -96,7 +96,7 @@ ssp_2019_shp_tx_geral %>%
 
 ```
 
-```{r echo=FALSE, out.height=10, out.width=8}
+```{r echo=FALSE}
 # Ler base
 ssp_2019_shp_tx_categoria <- readr::read_rds("./data/ssp_2019_shp_tx_categoria.rds")
 
