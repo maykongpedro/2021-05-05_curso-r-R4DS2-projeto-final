@@ -81,6 +81,8 @@ vítimas de alguns crimes, essas foram excluídas da análise como um todo.
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/docs/mapa_geral_cm.png)
 
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/docs/mapa_geral.png)
+
 ## Avaliação de criminalidade durante a quarentena
 
 `devtools::build_readme()` i
