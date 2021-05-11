@@ -6,43 +6,78 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of 2021-05-05\_curso-r-R4DS2-projeto-final is to …
+# Introdução
 
-**Secretaria de Segurança Pública (SSP) de São Paulo** Descrição: número
-de ocorrências mensais de diversos crimes de 2002 a 2020 (abril) no
-nível delegacia para todo o Estado de São Paulo.
+## Motivação
 
-# Principais variáveis:
+Esse repositório tem como movitação servir de entrega para o trabalho
+final de conclusão de curso do Curso: R para Ciência de Dados 2 da Curso
+R.
 
--   Número de ocorrências mensais (furtos, roubos, homicídios etc)   
--   Delegacia onde a ocorrência foi registrada  
--   Município e região do estado da delegacia  
--   Mês e ano
+## Objetivo
 
-# Principais características
+Analisar umas das bases disponibilizadas pelos professores utilizando o
+conhecimento adquirido no curso.
 
--   Séries temporais  
--   Dados geográficos  
--   Oportunidade para construção de mapas
+## Base de dados
 
-# Sugestões de análises
+A base escolhida foi a da **Secretaria de Segurança Pública (SSP) de São
+Paulo**, uma base tratada pela equipe da Curso R, onde temos o compilado
+de ocorrências criminais por delegacia, município, ano e mês.
 
--   Visualizar as séries de criminalidade  
--   Avaliar se os níveis de criminalidade mudaram durante a quarentena
+Além dessa base foi utilizado uma planilha com os dados de população
+estimada para cada município do estado de SP, além do shape dos
+municípios.
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+As bases são detalhadas abaixo:
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+### SSP
+
+-   Descrição: número de ocorrências mensais de diversos crimes de 2002
+    a 2020 (abril) no nível delegacia para todo o Estado de São Paulo.  
+-   Variáveis:
+-   Fonte: SSP-SP - Dados compilados e organizados pela Curso R.
+
+### População por município
+
+-   Descrição: população estimada para cada município do estado de São
+    Paulo.
+-   Variáveis: codigo\_ibge, municipio\_nome, colunas respectivas para
+    cada ano (2002 a 2020)
+-   Fonte: IBGE
+
+### Shape dos municípios
+
+-   Descrição: *simple feature* dos municípios do estado de São Paulo.
+-   Variáveis: codigo\_ibge, municipio\_nome, colunas respectivas para
+    cada ano (2002 a 2020)
+-   Fonte: IBGE / geobr / RDS gerado pela curso R.
+
+# Análises
+
+Como recomendação para a atividade, os seguintes pontos foram analisados
+durante esse trabalho: - Séries de criminalidade  
+- Avaliação sobre os níveis de criminalidade durante a quarentena -
+existe alguma diferença com o restante do histórico? - Distribuição
+espacial das ocorrências de criminalidade.
+
+Para facilitar a análise, os crimes contidos dentro da base foram
+classificados pela própria nomenclatura, gerando 6 categorias de crime
+que resumem os dados. Essas categorias não tem como pretensão serem
+corretas se vistas por aspectos do Direito Penal, são apenas
+simplificações dentro do escopo desse trabalho. A classificação de
+categoria pode ser verificada na tabela abaixo:
+
+**inser tabela de classificação**
+
+Além disso, dentro da base constam colunas onde são informadas as
+vítimas de alguns crimes, essas foram excluídas da análise como um todo.
+
+## Séries de criminalidade
+
+## Distribuição espacial das ocorrências
+
+## Avaliação de criminalidade durante a quarentena
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
 up-to-date. `devtools::build_readme()` is handy for this. You could also
@@ -50,9 +85,4 @@ use GitHub Actions to re-render `README.Rmd` every time you push. An
 example workflow can be found here:
 <https://github.com/r-lib/actions/tree/master/examples>.
 
-You can also embed plots, for example:
-
 ![](README_files/figure-gfm/pressure-1.png)<!-- -->
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub.
