@@ -4,9 +4,7 @@ library(magrittr, include.only = '%>%')
 
 # Motivações:
 # Principais características  
-# Visualizar série de criminalidade
 # Categorizar e resumir principais crimes
-# Comparar período de pandemia com a série histórica
 
 
 # Ler base ----------------------------------------------------------------
@@ -69,7 +67,7 @@ ssp_pivot_categorico <-
         categoria = dplyr::case_when(
             stringr::str_detect(crime_cometido, "estupro") ~ "estupro",
             stringr::str_detect(crime_cometido, "furto") ~ "furto",
-            stringr::str_detect(crime_cometido, "hom") ~ "homicido",
+            stringr::str_detect(crime_cometido, "hom") ~ "homicidio",
             stringr::str_detect(crime_cometido, "lesao") ~ "lesão corporal",
             stringr::str_detect(crime_cometido, "latro") ~ "latrocinio",
             stringr::str_detect(crime_cometido, "roubo") ~ "roubo",
@@ -107,52 +105,7 @@ ssp_pivot_categorico %>%
     dplyr::arrange(ano,dplyr::desc(total))
 
 
-# Quantidade total de crimes por ano excluindo 2020 (pois só tem até abril)
-source("./R/1-ggplot-grafico-de-barras.R")
-ssp_pivot_categorico %>% 
-    dplyr::filter(ano != 2020) %>% 
-    dplyr::group_by(ano, categoria) %>% 
-    dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
-    
-    grafico_de_barras(x = ano, 
-                      y = total_mil, 
-                      preenchimento = categoria,
-                      breaks_eixo_x = seq(from = 2002, to = 2019, by = 1),
-                      titulo = "Histórico de ocorrências por categoria de crime no estado de São Paulo (Mil ocorrências)",
-                      subtitulo = NULL,
-                      tit_legenda = "Categoria de crime")
-    
-
-# Exibindo as categorias com mais de 50mil ocorrências
-source("./R/2-ggplot-grafico-de-linhas.R")
-ssp_pivot_categorico %>% 
-    dplyr::filter(ano != 2020) %>% 
-    dplyr::group_by(ano, categoria) %>% 
-    dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
-    dplyr::filter(total_mil > 50) %>%
-    
-    grafico_de_linhas(x = ano,
-                      y = total_mil,
-                      cores = categoria,
-                      breaks_eixo_x = seq(from = 2002, to = 2019, by = 1),
-                      titulo = "Histórico de ocorrências por categoria de crime no estado de São Paulo (Mil ocorrências)",
-                      subtitulo = "Categorias com mais de 50mil ocorrências")
     
 
 
-# Criminalidade aumentou da quarentena para cá? (Mar/2020)
-# comparar com soma de ocorrências dos anos anteriores
-# Como a base vai somente até abril de 2020, vou selecionar apenas os 4 meses
-# iniciais de cada ano para poder fazer o comparativo
-ssp_pivot_categorico %>% 
-    dplyr::filter(mes %in% c(1, 2, 3, 4)) %>% 
-    dplyr::group_by(ano, categoria) %>% 
-    dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
-    
-    grafico_de_barras(x = ano,
-                      y = total_mil,
-                      preenchimento = categoria,
-                      breaks_eixo_x = seq(from = 2002, to = 2020, by = 1),
-                      titulo = "Histórico de ocorrências por categoria de crime no estado de São Paulo (Mil ocorrências)",
-                      subtitulo = "Apenas os 4 primeiros meses de cada ano",
-                      tit_legenda = "Categoria de crime")
+

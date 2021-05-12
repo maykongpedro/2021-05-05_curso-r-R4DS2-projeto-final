@@ -21,7 +21,7 @@ mapa_municipios <- function(db_shape,
                          color = "white",
                          size = 0.5) +
         ggplot2::geom_sf(data = db_shape, ggplot2::aes(fill = {{valores}})) +
-        ggplot2::scale_fill_viridis_c(direction = -1) +
+        ggplot2::scale_fill_viridis_d(direction = -1) +
         ggplot2::labs(fill = "Taxa de ocorrências \n(por 100mil hab.)",
                       subtitle = subtitulo,
                       caption = "**Dataviz:** @maykongpedro | **Fonte:** SSP (Dados organizados pela Curso-R)") +
