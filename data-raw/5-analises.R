@@ -55,8 +55,13 @@ plot2
 # Existe algum período do ano onde ocorrem mais crimes? -------------------
 
 ssp_pivot_categorico_tx %>% 
-    dplyr::filter(ano != 2020) %>%    
-
+    dplyr::filter(ano != 2020,
+                  pop >= 100000) %>% 
+    #dplyr::mutate(mes_abreviado = month.abb[mes]) %>% 
+    dplyr::mutate(mes_name = month.name[mes]) %>% 
+    dplyr::group_by(mes_name) %>% 
+    dplyr::summarise(total_mil = sum(ocorrencias/1000)) %>% 
+    dplyr::arrange(dplyr::desc(total_mil))
 
 
 
@@ -99,7 +104,8 @@ total_2020 <-
     dplyr::pull()
 
 # destacando a diferença
-plot4 + 
+plot4 <- 
+    plot4 + 
     # adicionar uma linha de corte
     ggplot2::geom_hline(yintercept=total_2020, linetype="dashed", color = "red", size = 1) +
     
@@ -111,4 +117,8 @@ plot4 +
                fill = "white", 
                label.size = NA, 
                size = 3) 
-    
+plot4    
+
+
+
+
