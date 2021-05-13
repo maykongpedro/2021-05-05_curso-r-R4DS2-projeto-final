@@ -22,6 +22,31 @@ unique(ssp$ano)
 
 # Transformar e Explorar  -------------------------------------------------
 
+# visualizar quantos itens tem NA em cada coluna
+ssp %>% 
+    dplyr::summarise(
+        dplyr::across(
+            .cols = dplyr::everything(),
+            .fns = ~sum(is.na(.x))
+        )
+    ) %>% 
+    dplyr::select(
+        where(~.x > 0)
+    )
+
+# verificando se existem ocorrências dentro desses NAs
+ssp %>% 
+    dplyr::filter(is.na(delegacia_nome)) %>%
+    dplyr::summarise(
+        dplyr::across(
+            .cols = 6:ncol(ssp),
+            .fns = ~ sum(.x)
+            )
+        ) %>% 
+    View()
+# Não existem ocorrências, então isso não vai atrapalhar na análise
+
+
 # Agrupando todos os crimes em apenas uma coluna
 ssp_pivot <- 
     ssp %>%
