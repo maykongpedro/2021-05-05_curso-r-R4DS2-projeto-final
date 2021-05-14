@@ -1,4 +1,4 @@
-#' grafico_de_barras
+#' grafico_de_colunas
 #'
 #' Descrição da função
 #' 
@@ -11,9 +11,9 @@
 #' @param subtitulo subtítulo do gráfico
 #' @param tit_legenda título da legenda
 #' 
-#' @return retorna um gráfico de barras dentro do estilo proposto para a análise
+#' @return retorna um gráfico de colunas dentro do estilo proposto para a análise
 #' 
-grafico_de_barras <- function(db, 
+grafico_de_colunas <- function(db, 
                               x, 
                               y, 
                               preenchimento, 
