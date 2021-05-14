@@ -161,8 +161,8 @@ plot4 <-
 plot4    
 
 
-# gráfico com percentual de diferença
-plot5 <- 
+# gráfico de 1 ano entre 2019 e 2020
+ano_covid <-
     ssp_pivot_categorico_tx %>% 
     dplyr::filter(ano %in% c(2019, 2020)) %>% 
     tidyr::unite(col = "data", c("mes", "ano"), sep = "/", remove = FALSE) %>% 
@@ -171,16 +171,17 @@ plot5 <-
                                  as.Date("2019-04-01"), 
                                  as.Date("2020-04-01"))) %>%
     dplyr::group_by(data) %>% 
-    dplyr::summarise(total_mil = sum(ocorrencias/1000)) %>% 
-    
+    dplyr::summarise(total_mil = sum(ocorrencias/1000)) 
 
+plot5 <- 
+    ano_covid %>% 
     
     ggplot2::ggplot(ggplot2::aes(x = data, y = total_mil)) +
     ggplot2::geom_line(size = 1, color = "#440164") +
     ggplot2::geom_point(size = 4, color = "#440164") +
     ggplot2::geom_area(colour = "black", fill = "#31688e", alpha = .1) +
     ggplot2::scale_y_continuous(expand = ggplot2::expansion(), limits = c(0, 100)) +
-    ggplot2::scale_x_date(breaks = "months", date_labels = "%b/%y") +
+    ggplot2::scale_x_date(date,breaks = "months", date_labels = "%b/%y") +
     ggplot2::labs(x = "", y = "Total de ocorrências (Mil)",
                   caption = "**Dataviz:** @maykongpedro | **Fonte:** SSP (Dados organizados pela Curso-R)") +
     ggplot2::ggtitle("Total de ocorrências de crimes dentro do período de um ano no estado de São Paulo") +
@@ -189,10 +190,16 @@ plot5 <-
                    plot.subtitle = ggplot2::element_text(hjust = 0.5),
                    axis.line.x = ggplot2::element_line(size = 1),
                    plot.caption = ggtext::element_markdown(hjust = 1),
-                   plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm"))
+                   plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm")) +
 
-plot5
 
+# percentual de diferença
+abril_2019 <- ano_covid[1,2]
+abril_2020 <- ano_covid[nrow(ano_covid), 2]    
+percentual_dif <- round((abril_2020 - abril_2019)/abril_2019, 3)
+
+percentual_dif
+s
 
 # data do primeiro caso de covid confirmado em SP
 # https://especiais.g1.globo.com/sp/sao-paulo/2021/um-ano-de-covid-sp/
@@ -202,31 +209,57 @@ caso1_covid_sp <- as.Date("2020-02-26")
 # add linhas e anotações
 plot5_com_notas <-
     plot5 +
+    
     ggplot2::geom_vline(xintercept=caso1_covid_sp, 
                         linetype="dashed", 
-                        color = "red", size = .5) +
+                        color = "#f39189", size = .5) +
     
     ggplot2::geom_label(
         ggplot2::aes(x = as.Date("2020-01-01"),
                      y = 25,
                      label = "Confirmação do primeiro caso de \nCOVID-19 no estado de São Paulo"),
         hjust = .7,
-        colour = "red",
-        #fill = NA,
+        colour = "#f39189",
+        fill = NA,
         #label.size = NA,
-        size = 3,
+        size = 3
     ) +
     
     ggplot2::geom_curve(ggplot2::aes(x = as.Date("2020-02-01"), 
                                      y = 25, 
                                      xend = as.Date("2020-02-23"), 
                                      yend = 27), 
-                        colour = "red", 
+                        colour = "#f39189", 
                         size=0.7, 
                         curvature = -0.1,
-                        arrow = ggplot2::arrow(length = grid::unit(0.03, "npc")))
-
+                        arrow = ggplot2::arrow(length = grid::unit(0.03, "npc"))) +
+    
+    ggplot2::geom_label(
+        ggplot2::aes(x = as.Date("2020-04-01"),
+                     y = 45,
+                     label = scales::percent(percentual_dif$total_mil)),
+        hjust = .4,
+        colour = "#f39189",
+        fill = NA,
+        label.size = NA,
+        size = 6
+    ) +
+    
+    ggplot2::geom_label(
+        ggplot2::aes(x = as.Date("2020-04-01"),
+                     y = 36,
+                     label = "Diminuição em \nrelação ao \nmesmo período \ndo ano anterior"),
+        hjust = .57,
+        colour = "#f39189",
+        fill = NA,
+        #label.size = NA,
+        size = 2
+    )
+    
 plot5_com_notas
+
+
+
 
 ggplot2::ggsave(
     plot = plot5_com_notas,
@@ -238,7 +271,5 @@ ggplot2::ggsave(
 )
 
 
-    
-scales::show_col(viridis::viridis_pal(option = "viridis")(7)) 
 
 
