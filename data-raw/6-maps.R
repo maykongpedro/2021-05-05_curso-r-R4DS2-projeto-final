@@ -108,8 +108,8 @@ plot_map_geral <-
     mapa_geral %>% 
     mapa_municipios(shape_geral = base_muni,
                     valores = total_mil,
-                    titulo = "Distribuição geográfica das cidades com maiores tx. de crime por 100mil hab.",
-                    subtitulo = "*Apenas cidades com mais de 100mil habitantes - Todos as categorias de crimes*") 
+                    titulo = "Distribuição geográfica das cidades com maiores taxas de crime por 100mil hab.",
+                    subtitulo = "Apenas cidades com no mínimo 100mil hab.") 
 
 plot_map <- 
     plot_map_geral +
