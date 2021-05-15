@@ -14,14 +14,17 @@ mapa_municipios <- function(db_shape,
                             shape_geral,
                             valores,
                             titulo, 
-                            subtitulo) {
+                            subtitulo,
+                            rotulos) {
         ggplot2::ggplot() +
         ggplot2::geom_sf(data = shape_geral,
                          alpha = .9,
                          color = "white",
                          size = 0.5) +
-        ggplot2::geom_sf(data = db_shape, ggplot2::aes(fill = {{valores}})) +
-        ggplot2::scale_fill_viridis_d(direction = -1) +
+        ggplot2::geom_sf(data = db_shape, ggplot2::aes(fill = {{valores}}),
+                         color = "#5A5A5A",
+                         size = .5) +
+        ggplot2::scale_fill_viridis_d(direction = -1)+
         ggplot2::labs(fill = "Taxa de ocorrências \n(por 100mil hab.)",
                       subtitle = subtitulo,
                       caption = "**Dataviz:** @maykongpedro | **Fonte:** SSP (Dados organizados pela Curso-R)") +
@@ -41,4 +44,3 @@ mapa_municipios <- function(db_shape,
                        plot.subtitle = ggtext::element_markdown(hjust = 0.5),
                        plot.caption = ggtext::element_markdown(hjust = 1))
 }
-

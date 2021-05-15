@@ -14,14 +14,14 @@ dplyr::glimpse(ssp_pivot_categorico_tx)
 
 
 # Quanti. total de crimes por ano excluindo 2020 --------------------------
-source("./R/1-ggplot-grafico-de-barras.R", encoding = "UTF-8")
+source("./R/1-ggplot-grafico-de-colunas.R", encoding = "UTF-8")
 plot1 <- 
     ssp_pivot_categorico_tx %>% 
     dplyr::filter(ano != 2020) %>% 
     dplyr::group_by(ano, categoria) %>% 
     dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
     
-    grafico_de_barras(x = ano, 
+    grafico_de_colunas(x = ano, 
                       y = total_mil, 
                       preenchimento = categoria,
                       breaks_eixo_x = seq(from = 2002, to = 2019, by = 1),
@@ -70,10 +70,11 @@ mes_maior_ocorrencias <-
 
                 
 # plotando meses
-meses %>% 
+plot_3 <- 
+    meses %>% 
     dplyr::mutate(
         mes_name = forcats::fct_rev(mes_name), # invertendo ordem dos fatores
-        mes_name_label = sprintf("%1.f Mi", round(total_mil, 0)) # criando labels
+        mes_name_label = sprintf("%1.f Mil", round(total_mil, 0)) # criando labels
     ) %>% 
     ggplot2::ggplot() +
     ggplot2::geom_col(ggplot2::aes(x = total_mil, y = mes_name),
@@ -121,14 +122,14 @@ ssp_pivot_categorico_tx %>%
 # comparar com soma de ocorrências dos anos anteriores
 # Como a base vai somente até abril de 2020, vou selecionar apenas os 4 meses
 # iniciais de cada ano para poder fazer o comparativo
-source("./R/1-ggplot-grafico-de-barras.R", encoding = "UTF-8")
+source("./R/1-ggplot-grafico-de-colunas.R.R", encoding = "UTF-8")
 plot4 <- 
     ssp_pivot_categorico_tx %>% 
     dplyr::filter(mes %in% c(1, 2, 3, 4)) %>% 
     dplyr::group_by(ano, categoria) %>% 
     dplyr::summarise(total_mil = sum(ocorrencias)/1000) %>% 
     
-    grafico_de_barras(x = ano,
+    grafico_de_colunas(x = ano,
                       y = total_mil,
                       preenchimento = categoria,
                       breaks_eixo_x = seq(from = 2002, to = 2020, by = 1),
@@ -136,6 +137,7 @@ plot4 <-
                       subtitulo = "Apenas os 4 primeiros meses de cada ano",
                       tit_legenda = "Categoria de crime")
 
+plot4
 
 # obtendo máximo de 2020
 total_2020 <-
@@ -172,16 +174,17 @@ ano_covid <-
                                  as.Date("2020-04-01"))) %>%
     dplyr::group_by(data) %>% 
     dplyr::summarise(total_mil = sum(ocorrencias/1000)) 
+ano_covid
+
 
 plot5 <- 
     ano_covid %>% 
-    
     ggplot2::ggplot(ggplot2::aes(x = data, y = total_mil)) +
     ggplot2::geom_line(size = 1, color = "#440164") +
     ggplot2::geom_point(size = 4, color = "#440164") +
     ggplot2::geom_area(colour = "black", fill = "#31688e", alpha = .1) +
     ggplot2::scale_y_continuous(expand = ggplot2::expansion(), limits = c(0, 100)) +
-    ggplot2::scale_x_date(date,breaks = "months", date_labels = "%b/%y") +
+    ggplot2::scale_x_date(breaks = "months", date_labels = "%b/%y") +
     ggplot2::labs(x = "", y = "Total de ocorrências (Mil)",
                   caption = "**Dataviz:** @maykongpedro | **Fonte:** SSP (Dados organizados pela Curso-R)") +
     ggplot2::ggtitle("Total de ocorrências de crimes dentro do período de um ano no estado de São Paulo") +
@@ -190,8 +193,8 @@ plot5 <-
                    plot.subtitle = ggplot2::element_text(hjust = 0.5),
                    axis.line.x = ggplot2::element_line(size = 1),
                    plot.caption = ggtext::element_markdown(hjust = 1),
-                   plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm")) +
-
+                   plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm")) 
+plot5
 
 # percentual de diferença
 abril_2019 <- ano_covid[1,2]
@@ -199,7 +202,7 @@ abril_2020 <- ano_covid[nrow(ano_covid), 2]
 percentual_dif <- round((abril_2020 - abril_2019)/abril_2019, 3)
 
 percentual_dif
-s
+
 
 # data do primeiro caso de covid confirmado em SP
 # https://especiais.g1.globo.com/sp/sao-paulo/2021/um-ano-de-covid-sp/
@@ -259,17 +262,32 @@ plot5_com_notas <-
 plot5_com_notas
 
 
+# ggplot2::ggsave(
+#     plot = plot5_com_notas,
+#     "./inst/covid_mes.png",
+#     width = 24,
+#     height = 15,
+#     units = "cm",
+#     dpi = 300
+# )
 
 
-ggplot2::ggsave(
-    plot = plot5_com_notas,
-    "./inst/covid_mes.png",
-    width = 24,
-    height = 15,
-    units = "cm",
-    dpi = 300
+# Salvar gráficos ---------------------------------------------------------
+
+graficos_finais <- list(
+    hist_ocorrencias_ate_2019 = plot1,
+    hist_ocorrencias_mais_expressivas = plot2,
+    mes_mais_violento = plot_3,
+    hist_quadrimestre_covid = plot4,
+    hist_ano_covid = plot5_com_notas
 )
 
 
+purrr::iwalk(graficos_finais, ~ggplot2::ggsave(paste0(.y, ".png"), .x, 
+                                               path = "./inst",
+                                               height = 15,
+                                               width = 24,
+                                               units = "cm",
+                                               dpi = 300))
 
 
