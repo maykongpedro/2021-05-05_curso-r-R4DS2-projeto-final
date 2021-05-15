@@ -26,6 +26,8 @@ mapa_municipios <- function(db_shape,
                          size = .5) +
         ggplot2::scale_fill_viridis_d(direction = -1)+
         ggplot2::labs(fill = "Taxa de ocorrências \n(por 100mil hab.)",
+                      x = "",
+                      y = "",
                       subtitle = subtitulo,
                       caption = "**Dataviz:** @maykongpedro | **Fonte:** SSP (Dados organizados pela Curso-R)") +
         ggplot2::ggtitle(titulo) +
