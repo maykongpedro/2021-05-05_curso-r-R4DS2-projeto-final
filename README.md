@@ -77,9 +77,15 @@ vítimas de alguns crimes, essas foram excluídas da análise como um todo.
 
 ## Séries de criminalidade
 
-## Distribuição espacial das ocorrências
+### Histórico por categoria de crime
 
-## Geral - Cidades com maiores taxas de ocorrência por 100mib hab.
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_ocorrencias_ate_2019.png)
+
+### Mês mais violento dentro do histórico
+
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mes_mais_violento.png)
+
+### Geral - Cidades com maiores taxas de ocorrência por 100mib hab.
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png))
 
