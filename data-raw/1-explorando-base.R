@@ -121,7 +121,7 @@ ssp_pivot_categorico %>%
 
 # Categorias de crimes cometidos por ano
 # aqui encontrei um erro, diz que não ocorreu nenhum estupro em 2002, então
-# voltei nas colunas de totais e encontro dentr dela valores. A partir disso,
+# voltei nas colunas de totais e encontro dentro dela valores. A partir disso,
 # resolvi deixar a coluna total dentro da base
 
 ssp_pivot_categorico %>% 
