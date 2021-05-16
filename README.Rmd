@@ -81,7 +81,6 @@ ssp_pivot_categorico %>%
     kableExtra::kable(
         format = "markdown",
         col.names = c("Crime/Ocorrência", "Categoria"),
-        caption = "Fonte: SSP (Dados organizados pela Curso-R)",
         align = "c"
     ) %>% 
     kableExtra::kable_styling("striped", full_width = F) %>% 

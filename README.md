@@ -87,8 +87,6 @@ categoria pode ser verificada na tabela a seguir:
 |         lesao\_corp\_seg\_morte          | lesão corporal |
 |               roubo\_total               |     roubo      |
 
-Fonte: SSP (Dados organizados pela Curso-R)
-
 Além disso, foi necessário realizar outros dois procedimentos como
 premissas, sendo esses:
 
