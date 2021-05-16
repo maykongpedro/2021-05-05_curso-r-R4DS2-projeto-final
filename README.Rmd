@@ -68,7 +68,7 @@ Como recomendação para a atividade, os seguintes pontos foram analisados duran
 
 Para facilitar a análise, os crimes contidos dentro da base foram classificados pela própria nomenclatura, gerando 6 categorias de crime que resumem os dados. Essas categorias não tem como pretensão serem corretas se vistas por aspectos do Direito Penal, são apenas simplificações dentro do escopo desse trabalho. A classificação de categoria pode ser verificada na tabela a seguir:
 
-```{r echo=FALSE, message=TRUE, warning=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 # Ler base
 ssp_pivot_categorico <- readr::read_rds("./data/ssp_pivot_categorico.rds")
@@ -78,34 +78,14 @@ ssp_pivot_categorico <- readr::read_rds("./data/ssp_pivot_categorico.rds")
 ssp_pivot_categorico %>% 
     dplyr::select(crime_cometido, categoria) %>% 
     dplyr::distinct() %>% 
-  
-    # plotar tabela
-    # reactable(
-    #     pagination = FALSE,
-    #     striped = TRUE,
-    #     compact = TRUE,
-    #     columns = list(
-    #         crime_cometido = reactable::colDef("Crime/Ocorrência"),
-    #         categoria = reactable::colDef("Categoria teórica")
-    #     )
-    # )
-
-  # cria tabela base
-  gt::gt() %>% 
-  # adiciona headers
-  gt::tab_header(
-    title = "Crimes e categorias por ocorrência",
-    subtitle = "Classificação realizada para a análise"
-  ) %>% 
-  # rotulos das colunas
-  gt::cols_label(
-    crime_cometido = "Crime/Ocorrência",
-    categoria = "Categoria teórica"
-  ) %>% 
-  # rodapé
-  gt::tab_source_note(
-    "Fonte: SSP (Dados organizados pela Curso-R)"
-  )
+    kableExtra::kable(
+        format = "latex",
+        col.names = c("Crime/Ocorrência", "Categoria"),
+        caption = "Fonte: SSP (Dados organizados pela Curso-R)",
+        align = "c"
+    ) %>% 
+    kableExtra::kable_styling("striped", full_width = F) %>% 
+    kableExtra::footnote(general = "Fonte: SSP (Dados organizados pela Curso-R)")
 
 ```
 
