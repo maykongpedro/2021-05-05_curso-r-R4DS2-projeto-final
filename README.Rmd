@@ -66,12 +66,54 @@ Como recomendação para a atividade, os seguintes pontos foram analisados duran
 -   Avaliação sobre os níveis de criminalidade durante a quarentena - existe alguma diferença com o restante do histórico?
 -   Distribuição espacial das ocorrências de criminalidade.
 
-Para facilitar a análise, os crimes contidos dentro da base foram classificados pela própria nomenclatura, gerando 6 categorias de crime que resumem os dados. Essas categorias não tem como pretensão serem corretas se vistas por aspectos do Direito Penal, são apenas simplificações dentro do escopo desse trabalho. A classificação de categoria pode ser verificada na tabela abaixo:
+Para facilitar a análise, os crimes contidos dentro da base foram classificados pela própria nomenclatura, gerando 6 categorias de crime que resumem os dados. Essas categorias não tem como pretensão serem corretas se vistas por aspectos do Direito Penal, são apenas simplificações dentro do escopo desse trabalho. A classificação de categoria pode ser verificada na tabela a seguir:
 
-**inser tabela de classificação**
+```{r echo=FALSE}
 
-Além disso, dentro da base constam colunas onde são informadas as vítimas de alguns crimes, essas foram excluídas da análise como um todo.
+# Ler base
+ssp_pivot_categorico <- readr::read_rds("./data/ssp_pivot_categorico.rds")
 
+
+# Resumir crime e categorias
+ssp_pivot_categorico %>% 
+    dplyr::select(crime_cometido, categoria) %>% 
+    dplyr::distinct() %>% 
+  
+    # plotar tabela
+    # reactable(
+    #     pagination = FALSE,
+    #     striped = TRUE,
+    #     compact = TRUE,
+    #     columns = list(
+    #         crime_cometido = reactable::colDef("Crime/Ocorrência"),
+    #         categoria = reactable::colDef("Categoria teórica")
+    #     )
+    # )
+
+  # cria tabela base
+  gt::gt() %>% 
+  # adiciona headers
+  gt::tab_header(
+    title = "Crimes e categorias por ocorrência",
+    subtitle = "Classificação realizada para a análise"
+  ) %>% 
+  # rotulos das colunas
+  gt::cols_label(
+    crime_cometido = "Crime/Ocorrência",
+    categoria = "Categoria teórica"
+  ) %>% 
+  # rodapé
+  gt::tab_source_note(
+    "Fonte: SSP (Dados organizados pela Curso-R)"
+  )
+
+```
+
+Além disso, foi necessário realizar outros dois procedimentos como premissas, sendo esses:
+
+-   Dentro da base SSP constam colunas onde são informadas as vítimas de alguns crimes, essas foram excluídas da análise como um todo.
+
+-   Crimes de estupro e roubo possuem sub-categorias e estas são somadas em uma coluna de "total", contudo, na categoria de estupro se somo as sub-categorias, não chego no resultado do total, indicando um possível erro na base. Para evitar sub-estimativa, ignorei essas categorais e considerei apenas o "total".
 
 ## Séries de criminalidade
 
@@ -79,40 +121,28 @@ Além disso, dentro da base constam colunas onde são informadas as vítimas de 
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_ocorrencias_ate_2019.png)
 
-
 ```{r echo=FALSE}
 
 
 ```
 
-
 ### Mês mais violento dentro do histórico
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mes_mais_violento.png)
 
-
 ### Geral - Cidades com maiores taxas de ocorrência por 100mib hab.
 
-
-![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png))
-
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png)
 
 ## Avaliação de criminalidade durante a quarentena
 
-
 ### Histórico geral - Primeiro Quadrimestre
 
-
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_quadrimestre_covid.png)
-
-
-
 
 ### Comparativo do último ano
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_ano_covid.png)
-
-
 
 `devtools::build_readme()` i
 
