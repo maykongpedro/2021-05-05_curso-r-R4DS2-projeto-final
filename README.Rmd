@@ -68,7 +68,7 @@ Como recomendação para a atividade, os seguintes pontos foram analisados duran
 
 Para facilitar a análise, os crimes contidos dentro da base foram classificados pela própria nomenclatura, gerando 6 categorias de crime que resumem os dados. Essas categorias não tem como pretensão serem corretas se vistas por aspectos do Direito Penal, são apenas simplificações dentro do escopo desse trabalho. A classificação de categoria pode ser verificada na tabela a seguir:
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=TRUE, warning=FALSE}
 
 # Ler base
 ssp_pivot_categorico <- readr::read_rds("./data/ssp_pivot_categorico.rds")
