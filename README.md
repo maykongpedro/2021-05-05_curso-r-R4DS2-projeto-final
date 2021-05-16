@@ -70,6 +70,25 @@ corretas se vistas por aspectos do Direito Penal, são apenas
 simplificações dentro do escopo desse trabalho. A classificação de
 categoria pode ser verificada na tabela a seguir:
 
+|             Crime/Ocorrência             |   Categoria    |
+|:----------------------------------------:|:--------------:|
+|              estupro\_total              |    estupro     |
+|              furto\_outros               |     furto      |
+|             furto\_veiculos              |     furto      |
+|     hom\_culposo\_acidente\_transito     |   homicidio    |
+|           hom\_culposo\_outros           |   homicidio    |
+|               hom\_doloso                |   homicidio    |
+|     hom\_doloso\_acidente\_transito      |   homicidio    |
+|              hom\_tentativa              |   homicidio    |
+|                latrocinio                |   latrocinio   |
+| lesao\_corp\_culposa\_acidente\_transito | lesão corporal |
+|       lesao\_corp\_culposa\_outras       | lesão corporal |
+|           lesao\_corp\_dolosa            | lesão corporal |
+|         lesao\_corp\_seg\_morte          | lesão corporal |
+|               roubo\_total               |     roubo      |
+
+Fonte: SSP (Dados organizados pela Curso-R)
+
 Além disso, foi necessário realizar outros dois procedimentos como
 premissas, sendo esses:
 

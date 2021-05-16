@@ -79,7 +79,7 @@ ssp_pivot_categorico %>%
     dplyr::select(crime_cometido, categoria) %>% 
     dplyr::distinct() %>% 
     kableExtra::kable(
-        format = "latex",
+        format = "markdown",
         col.names = c("Crime/Ocorrência", "Categoria"),
         caption = "Fonte: SSP (Dados organizados pela Curso-R)",
         align = "c"
@@ -87,6 +87,7 @@ ssp_pivot_categorico %>%
     kableExtra::kable_styling("striped", full_width = F) %>% 
     kableExtra::footnote(general = "Fonte: SSP (Dados organizados pela Curso-R)")
 
+#knit::kable(odiff_sum, format = "markdown")
 ```
 
 Além disso, foi necessário realizar outros dois procedimentos como premissas, sendo esses:
