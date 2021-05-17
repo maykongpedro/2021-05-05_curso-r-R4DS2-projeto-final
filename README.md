@@ -35,7 +35,7 @@ As bases são detalhadas abaixo:
 ### SSP
 
 -   Descrição: número de ocorrências mensais de diversos crimes de 2002
-    a 2020 este último apenas até abril) no nível delegacia para todo o
+    a 2020 (esse último apenas até abril) no nível delegacia para todo o
     Estado de São Paulo.
 -   Variáveis:
 -   Fonte: SSP-SP - Dados compilados e organizados pela Curso R.
@@ -106,9 +106,9 @@ premissas, sendo esses:
 ## Séries de criminalidade
 
 Para as análises a seguir o ano de 2020 foi desconsiderado, por possuir
-apenas dados para apenas os quatro primeiros meses. Esse ano em
-específico foi destacado na avaliação de ocorrências durante o início da
-pandemia de Covid-19.
+apenas dados para os quatro primeiros meses. Esse ano em específico foi
+destacado na avaliação de ocorrências durante o início da pandemia de
+Covid-19.
 
 ### Histórico por categoria de crime
 
@@ -144,7 +144,19 @@ resultado pode ser observado no gráfico abaixo:
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mes_mais_violento.png)
 
-### Geral - Cidades com maiores taxas de ocorrência por 100mib hab.
+### Geral - Cidades com maiores taxas de ocorrência por 100mil hab.
+
+Para esse item será usada a taxa de ocorrência de crime para cada 100
+mil habitantes, por se tratar de análise comparativa entre municípios,
+sendo lógico “normalizar” as ocorrências para a quantidade populacional
+de cada cidade. Mais informações sobre essa prática podem ser obtidas no
+seguite link: [Taxa por 100mil
+habitantes](http://www.ssp.sp.gov.br/fale/estatisticas/answers.aspx?t=6)
+
+Filtrando somente os municípios com no mínimo 100 mil habitantes, e
+aplicando a normalização, chegamos em uma lista dos 20 municípios do
+estado de São Paulo com maiores taxas de ocorrências de crime dentro do
+histórico estudado.
 
 |       Município       | Tx de ocorrência por 100 mil hab. (Mil) | Média histórica da População(Mil) |
 |:---------------------:|:---------------------------------------:|:---------------------------------:|
@@ -170,6 +182,22 @@ resultado pode ser observado no gráfico abaixo:
 |        Taubaté        |                 153.032                 |             283.6991              |
 
 Fonte: SSP (Dados organizados pela Curso-R) & IBGE
+
+A cidade de São Paulo lidera o ranking, sendo algo natural por ser a
+cidades mais populosa da América Latina, com uma soma de 7322 milhão de
+taxa de ocorrência de crimes por 100mil hab.
+
+Um resultado surpreendente é que não necessariamente os municípios no
+ranking seguem a grandeza da média populacional do histórico. A segunda
+cidade com maior tx. é Campinas, possuindo uma média de 1100 milhão de
+habitantes, 176 mil a menos que a terceira cidade, Guarulhos. Implicando
+nesse caso em uma incidência de crimes realmente maior, e não derivada
+diretamente da quantidade de habitantes. Essa mesma situação pode ser
+verificada com outros municípios.
+
+Na mapa abaixo podemos verificar a distribuição espacial das taxas de
+ocorrência por 100mil hab. de todas as cidades com o mínimo de
+habitantes necessário para a correta utilização desse cálculo:
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png)
 

@@ -42,7 +42,7 @@ As bases são detalhadas abaixo:
 
 ### SSP
 
--   Descrição: número de ocorrências mensais de diversos crimes de 2002 a 2020 este último apenas até abril) no nível delegacia para todo o Estado de São Paulo.
+-   Descrição: número de ocorrências mensais de diversos crimes de 2002 a 2020 (esse último apenas até abril) no nível delegacia para todo o Estado de São Paulo.
 -   Variáveis:
 -   Fonte: SSP-SP - Dados compilados e organizados pela Curso R.
 
@@ -98,7 +98,7 @@ Além disso, foi necessário realizar outros dois procedimentos como premissas, 
 
 ## Séries de criminalidade
 
-Para as análises a seguir o ano de 2020 foi desconsiderado, por possuir apenas dados para apenas os quatro primeiros meses. Esse ano em específico foi destacado na avaliação de ocorrências durante o início da pandemia de Covid-19.
+Para as análises a seguir o ano de 2020 foi desconsiderado, por possuir apenas dados para os quatro primeiros meses. Esse ano em específico foi destacado na avaliação de ocorrências durante o início da pandemia de Covid-19.
 
 ### Histórico por categoria de crime
 
@@ -136,20 +136,25 @@ Um jeito simples de verificar é somando as ocorrências de todos os meses dentr
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mes_mais_violento.png)
 
 
-### Geral - Cidades com maiores taxas de ocorrência por 100mib hab.
+### Geral - Cidades com maiores taxas de ocorrência por 100mil hab.
+Para esse item será usada a taxa de ocorrência de crime para cada 100 mil habitantes, por se tratar de análise comparativa entre municípios, sendo lógico "normalizar" as ocorrências para a quantidade populacional de cada cidade. Mais informações sobre essa prática podem ser obtidas no seguite link: [Taxa por 100mil habitantes](http://www.ssp.sp.gov.br/fale/estatisticas/answers.aspx?t=6)
+
+Filtrando somente os municípios com no mínimo 100 mil habitantes, e aplicando a normalização, chegamos em uma lista dos 20 municípios do estado de São Paulo com maiores taxas de ocorrências de crime dentro do histórico estudado.
 
 ```{r echo=FALSE}
 
 # Quais são as 20 cidades com mais crimes dentro do histórico?
-ssp_pivot_categorico_tx %>% 
+cidades <-
+    ssp_pivot_categorico_tx %>% 
     dplyr::filter(ano != 2020,
                   pop >= 100000) %>% 
     dplyr::group_by(municipio_nome) %>%
     dplyr::summarise(total_mil = sum(ocorrencias/1000),
                      pop_mil = mean(pop)/1000) %>% 
     dplyr::arrange(dplyr::desc(total_mil)) %>%
-    head(20) %>%
-    
+    head(20)
+
+cidades %>% 
     kableExtra::kable(
         format = "markdown",
         col.names = c("Município", 
@@ -161,7 +166,33 @@ ssp_pivot_categorico_tx %>%
 
 ```
 
+
+```{r include=FALSE}
+valor_sp <- 
+    cidades %>%
+    dplyr::slice(1) %>% 
+    dplyr::pull(total_mil)
+
+rank_2 <- 
+    cidades %>%
+    dplyr::slice(2)
+
+rank_3 <-
+    cidades %>%
+    dplyr::slice(3)
+
+diferenca_pop_rank_3_pro_2 <- 
+    rank_3$pop_mil - rank_2$pop_mil
+```
+
+A cidade de São Paulo lidera o ranking, sendo algo natural por ser a cidades mais populosa da América Latina, com uma soma de `r round(valor_sp, 0)` milhão de taxa de ocorrência de crimes por 100mil hab. 
+
+Um resultado surpreendente é que não necessariamente os municípios no ranking seguem a grandeza da média populacional do histórico. A segunda cidade com maior tx. é `r rank_2$municipio_nome`, possuindo uma média de `r round(rank_2$pop_mil, 0)` milhão de habitantes, `r round(diferenca_pop_rank_3_pro_2, 0)` mil a menos que a terceira cidade, `r rank_3$municipio_nome`. Implicando nesse caso em uma incidência de crimes realmente maior, e não derivada diretamente da quantidade de habitantes. Essa mesma situação pode ser verificada com outros municípios.
+
+Na mapa abaixo podemos verificar a distribuição espacial das taxas de ocorrência por 100mil hab. de todas as cidades com o mínimo de habitantes necessário para a correta utilização desse cálculo:
+
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png)
+
 
 ## Avaliação de criminalidade durante a quarentena
 
