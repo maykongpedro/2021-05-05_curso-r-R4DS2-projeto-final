@@ -228,7 +228,7 @@ ocorrências de crimes no estado de São Paulo de Abril/2019 até
 Abril/2020, onde podemos ver uma diminuição de -46% deste último com o
 ano de 2019.
 
-![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_ano_covid.png)
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/covid_mes.png)
 
 # Conclusões
 
