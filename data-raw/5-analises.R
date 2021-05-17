@@ -67,7 +67,6 @@ meses <-
 mes_maior_ocorrencias <- 
     meses %>% 
     dplyr::filter(total_mil == max(total_mil))
-
                 
 # plotando meses
 source("./R/3-ggplot-grafico-de-barras.R", encoding = "UTF-8")
@@ -97,7 +96,7 @@ ssp_pivot_categorico_tx %>%
                   pop >= 100000) %>% 
     dplyr::group_by(municipio_nome) %>%
     dplyr::summarise(total_mil = sum(ocorrencias/1000),
-                     populacao = mean(pop)/1000) %>% 
+                     pop_mil = mean(pop)/1000) %>% 
     dplyr::arrange(dplyr::desc(total_mil)) %>% 
     head(20)
 
@@ -210,7 +209,7 @@ plot5_com_notas <-
         hjust = .7,
         colour = "#f39189",
         fill = NA,
-        #label.size = NA,
+        label.size = NA,
         size = 3
     ) +
     
@@ -236,26 +235,26 @@ plot5_com_notas <-
     
     ggplot2::geom_label(
         ggplot2::aes(x = as.Date("2020-04-01"),
-                     y = 36,
+                     y = 34,
                      label = "Diminuição em \nrelação ao \nmesmo período \ndo ano anterior"),
         hjust = .57,
         colour = "#f39189",
         fill = NA,
-        #label.size = NA,
+        label.size = NA,
         size = 3
     )
     
 plot5_com_notas
 
 
-# ggplot2::ggsave(
-#     plot = plot5_com_notas,
-#     "./inst/covid_mes.png",
-#     width = 24,
-#     height = 15,
-#     units = "cm",
-#     dpi = 300
-# )
+ggplot2::ggsave(
+    plot = plot5_com_notas,
+    "./inst/covid_mes.png",
+    width = 24,
+    height = 15,
+    units = "cm",
+    dpi = 300
+)
 
 
 # Salvar gráficos ---------------------------------------------------------
