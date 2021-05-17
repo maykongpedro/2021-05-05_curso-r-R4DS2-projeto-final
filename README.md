@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# 2021-05-05\_curso-r-R4DS2-projeto-final
+# Análise do histórico de 2002 a 2020 de ocorrências de crimes da **Secretaria da Segurança Pública de São Paulo (SSP-SP)**
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -22,8 +22,9 @@ própria, utilizando o conhecimento adquirido no curso.
 ## Base de dados
 
 A base escolhida foi a da **Secretaria de Segurança Pública (SSP) de São
-Paulo**, uma base tratada pela equipe da Curso R, onde temos o compilado
-de ocorrências criminais por delegacia, município, ano e mês.
+Paulo**, uma base adivinda da própria secretaria, porém tratada e
+organizada pela equipe da Curso R, onde temos o compilado de ocorrências
+criminais por delegacia, município, ano e mês.
 
 Além dessa base foi utilizado uma planilha com os dados de população
 estimada para cada município do estado de SP, além do shape dos
@@ -34,7 +35,8 @@ As bases são detalhadas abaixo:
 ### SSP
 
 -   Descrição: número de ocorrências mensais de diversos crimes de 2002
-    a 2020 (abril) no nível delegacia para todo o Estado de São Paulo.
+    a 2020 este último apenas até abril) no nível delegacia para todo o
+    Estado de São Paulo.
 -   Variáveis:
 -   Fonte: SSP-SP - Dados compilados e organizados pela Curso R.
 
@@ -103,39 +105,46 @@ premissas, sendo esses:
 
 ## Séries de criminalidade
 
+Para as análises a seguir o ano de 2020 foi desconsiderado, por possuir
+apenas dados para apenas os quatro primeiros meses. Esse ano em
+específico foi destacado na avaliação de ocorrências durante o início da
+pandemia de Covid-19.
+
 ### Histórico por categoria de crime
+
+No gráfico abaixo podemos perceber como a soma total de ocorrências
+estão diminuindo ao longo do tempo, sendo o ano de 2018 e 2019 os mais
+baixos dentro do histórico. Os destaques estão no triênio de 2012 a
+2014, onde o número total de ocorrências se manteve aproximadamente em
+1257milhão, após isso apresentou queda.
+
+Também pode-se extrair os tipos de crimes mais comuns dentro da base,
+sendo o furto o mais proeminente, seguido de lesão corporal e roubo.
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_ocorrencias_ate_2019.png)
 
+Se consideramos as categorias de crimes que possuem mais de **50mil**
+ocorrências, temos o seguinte comportamento no histórico:
+
+![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_ocorrencias_mais_expressivas.png)
+Onde podemos observar que no geral as três categorias mantém um certo
+padrão ao longo dos anos, apenas mudando a partir de 2014, onde a
+categoria de **lesão corporal** começou a diminuir e a de **roubo** a
+subir, no mesmo ano.
+
 ### Mês mais violento dentro do histórico
+
+Um questionamnto interessante é verificar se existe algum período do ano
+onde a ocorrência de crimes é maior, sendo os motivos impossíveis de
+justificar somente com o escopo desse trabalho.
+
+Um jeito simples de verificar é somando as ocorrências de todos os meses
+dentro da base, identificando qual mês que mais possui ocorrências, o
+resultado pode ser observado no gráfico abaixo:
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mes_mais_violento.png)
 
 ### Geral - Cidades com maiores taxas de ocorrência por 100mib hab.
-
-``` r
-# Carregar base
-ssp_pivot_categorico_tx <- readr::read_rds("./data/ssp_completo_ponderado.rds")
-
-# Quais são as 20 cidades com mais crimes dentro do histórico?
-ssp_pivot_categorico_tx %>% 
-    dplyr::filter(ano != 2020,
-                  pop >= 100000) %>% 
-    dplyr::group_by(municipio_nome) %>%
-    dplyr::summarise(total_mil = sum(ocorrencias/1000),
-                     pop_mil = mean(pop)/1000) %>% 
-    dplyr::arrange(dplyr::desc(total_mil)) %>%
-    head(20) %>%
-    
-    kableExtra::kable(
-        format = "markdown",
-        col.names = c("Município", 
-                      "Tx de ocorrência por 100 mil hab. (Mil)",
-                      "Média histórica da População(Mil)"),
-        caption = "Fonte: SSP (Dados organizados pela Curso-R) & IBGE",
-        align = "c"
-    ) 
-```
 
 |       Município       | Tx de ocorrência por 100 mil hab. (Mil) | Média histórica da População(Mil) |
 |:---------------------:|:---------------------------------------:|:---------------------------------:|
