@@ -147,9 +147,9 @@ resultado pode ser observado no gráfico abaixo:
 ### Geral - Cidades com maiores taxas de ocorrência de crimes
 
 Para esse item será usada a taxa de ocorrência de crime para cada 100
-mil habitantes\[1\], por se tratar de análise comparativa entre
-municípios, sendo lógico “normalizar” as ocorrências para a quantidade
-populacional de cada cidade.
+mil habitantes¹, por se tratar de análise comparativa entre municípios,
+sendo lógico “normalizar” as ocorrências para a quantidade populacional
+de cada cidade.
 
 Filtrando somente os municípios com no mínimo 100 mil habitantes, e
 aplicando o cálculo da taxa, chegamos em uma lista dos 20 municípios do
@@ -193,17 +193,17 @@ nesse caso em uma incidência de crimes realmente maior, e não derivada
 diretamente da quantidade de habitantes. Essa mesma situação pode ser
 verificada com outros municípios.
 
-Na mapa\[2\] abaixo podemos verificar a distribuição espacial das taxas
-de ocorrência por 100mil hab. de todas as cidades com o mínimo de
+Na mapaa² baixo podemos verificar a distribuição espacial das taxas de
+ocorrência por 100mil hab. de todas as cidades com o mínimo de
 habitantes necessário para a correta utilização desse cálculo, sendo a
-cor um indicaditov da intensidade da classe de ocorrências\[3\].
+cor um indicadito da intensidade da classe de ocorrências³.
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png)
 
 ## Avaliação de criminalidade durante a quarentena
 
 Como comentado anteriormente, uma recomendação de análise levantada
-pelos instrutores da CursoR é identificar se houve alguma diferença no
+pelos instrutores da Curso R é identificar se houve alguma diferença no
 número de ocorrências durante a quarentena de Covid-19, que se iniciou
 em Março do 2020.
 
@@ -211,37 +211,20 @@ em Março do 2020.
 
 No gráfico abaixo podemos verificar o histórico anual da base
 considerando apenas os meses de Janeiro até Abril, por ser o último mês
-com dados no ano de 2020. A linha de corte demosntra o quão baixo ficou
-o número de ocorrências se comparado com o mesmo período dos anos
-anteriores, demosntrando claramente a diminuição das ocorrências em
+com dados no ano de 2020. A linha de corte destaca o quão baixo ficou o
+número de ocorrências se comparado com o mesmo período dos anos
+anteriores, demonstrando claramente a diminuição das ocorrências em
 2020, isso podendo ser pelo próprio fechamento de delegacias durante a
 quarentena (ou seja, diminuindo um pouco o lançamento dos dados), ou
-pela própria restrição de circulação no estado, impedindo um aumento nas
+pela própria restrição de circulação no estado, impedindo o aumento nas
 ocorrências de crimes.
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/hist_quadrimestre_covid.png)
 
 ### Comparativo do último ano
 
-``` r
-ano_covid <-
-    ssp_pivot_categorico_tx %>% 
-    dplyr::filter(ano %in% c(2019, 2020)) %>% 
-    tidyr::unite(col = "data", c("mes", "ano"), sep = "/", remove = FALSE) %>% 
-    dplyr::mutate(data = lubridate::my(data)) %>% 
-    dplyr::filter(dplyr::between(data, 
-                                 as.Date("2019-04-01"), 
-                                 as.Date("2020-04-01"))) %>%
-    dplyr::group_by(data) %>% 
-    dplyr::summarise(total_mil = sum(ocorrencias/1000)) 
-
-abril_2019 <- ano_covid[1,2]
-abril_2020 <- ano_covid[nrow(ano_covid), 2]    
-percentual_dif <- round((abril_2020 - abril_2019)/abril_2019, 3)
-```
-
-Esse item tem como objetivo mostrar o comportamento do número absoluto
-de ocorrências de crimes no estado de São Paulo de Abril/2019 até
+Esse item tem como objetivo mostrar o comportamento do número de
+ocorrências de crimes no estado de São Paulo de Abril/2019 até
 Abril/2020, onde podemos ver uma diminuição de -46% deste último com o
 ano de 2019.
 
@@ -249,8 +232,8 @@ ano de 2019.
 
 # Conclusões
 
-Apesar de não ser uma análise extremamente compelxa, foi possível
-retirar algumas respostas a partir dos dados, como:
+Apesar de não ser uma análise extremamente complexa,foi possível retirar
+algumas respostas a partir dos dados, como:
 
 -   comportamento do histórico de ocorrências de crimes
 -   quais as categorias de crimes mais comuns no estado

@@ -34,6 +34,7 @@ ssp %>%
         where(~.x > 0)
     )
 
+
 # verificando se existem ocorrências dentro desses NAs
 ssp %>% 
     dplyr::filter(is.na(delegacia_nome)) %>%
@@ -44,7 +45,8 @@ ssp %>%
             )
         ) %>% 
     View()
-# Não existem ocorrências, então isso não vai atrapalhar na análise
+
+# Não existem ocorrências nesses NAs, então isso não vai atrapalhar na análise
 
 
 # Agrupando todos os crimes em apenas uma coluna
@@ -58,10 +60,10 @@ ssp_pivot <-
     # retirando vítimas dos crimes
     dplyr::filter(!stringr::str_detect(crime_cometido, "vit")) %>% 
     
-    # retirando "totais" para não atrapalhar na sumarização
+    # retirando sub-categorias que são agrupadas dentro de "totais"
     # se retiro os "totais", chego em erro pois tem ano onde a soma dos itens 
     # é zerada mas o "total" não
-    #dplyr::filter(!stringr::str_detect(crime_cometido, "total"))
+    # dplyr::filter(!stringr::str_detect(crime_cometido, "total"))
     
     # tirando crimes que são agrupadas em um total
     dplyr::filter(!(crime_cometido %in% c("estupro", 
@@ -70,9 +72,6 @@ ssp_pivot <-
                                           "roubo_carga",
                                           "roubo_outros",
                                           "roubo_veiculo")))
-
-# Confirmando se tem NA dentro de algum lugar da base
-
 
 
 # Quantos crimes diferentes temos dentro da base
