@@ -129,7 +129,7 @@ Onde podemos observar que no geral as três categorias mantém um certo padrão 
 
 
 ### Mês mais violento dentro do histórico
-Um questionamnto interessante é verificar se existe algum período do ano onde a ocorrência de crimes é maior, sendo os motivos impossíveis de justificar somente com o escopo desse trabalho.
+Um questionamento interessante é verificar se existe algum período do ano onde a ocorrência de crimes é maior, sendo os motivos impossíveis de justificar somente com o escopo desse trabalho.
 
 Um jeito simples de verificar é somando as ocorrências de todos os meses dentro da base, identificando qual mês que mais possui ocorrências, o resultado pode ser observado no gráfico abaixo:
 
@@ -189,7 +189,7 @@ A cidade de São Paulo lidera o ranking, sendo algo natural por ser a cidade mai
 
 Um resultado surpreendente é que não necessariamente os municípios no ranking seguem a grandeza da média populacional do histórico. A segunda cidade com maior tx. é `r rank_2$municipio_nome`, possuindo uma média de `r round(rank_2$pop_mil, 0)` milhão de habitantes, `r round(diferenca_pop_rank_3_pro_2, 0)` mil a menos que a terceira cidade, `r rank_3$municipio_nome`. Implicando nesse caso em uma incidência de crimes realmente maior, e não derivada diretamente da quantidade de habitantes. Essa mesma situação pode ser verificada com outros municípios.
 
-Na mapaa² baixo podemos verificar a distribuição espacial das taxas de ocorrência por 100mil hab. de todas as cidades com o mínimo de habitantes necessário para a correta utilização desse cálculo, sendo a cor um indicadito da intensidade da classe de ocorrências³.
+Na mapa² baixo podemos verificar a distribuição espacial das taxas de ocorrência por 100mil hab. de todas as cidades com o mínimo de habitantes necessário para a correta utilização desse cálculo, sendo a cor um indicadito da intensidade da classe de ocorrências³.
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png)
 

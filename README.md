@@ -134,8 +134,8 @@ subir, no mesmo ano.
 
 ### Mês mais violento dentro do histórico
 
-Um questionamnto interessante é verificar se existe algum período do ano
-onde a ocorrência de crimes é maior, sendo os motivos impossíveis de
+Um questionamento interessante é verificar se existe algum período do
+ano onde a ocorrência de crimes é maior, sendo os motivos impossíveis de
 justificar somente com o escopo desse trabalho.
 
 Um jeito simples de verificar é somando as ocorrências de todos os meses
@@ -193,7 +193,7 @@ nesse caso em uma incidência de crimes realmente maior, e não derivada
 diretamente da quantidade de habitantes. Essa mesma situação pode ser
 verificada com outros municípios.
 
-Na mapaa² baixo podemos verificar a distribuição espacial das taxas de
+Na mapa² baixo podemos verificar a distribuição espacial das taxas de
 ocorrência por 100mil hab. de todas as cidades com o mínimo de
 habitantes necessário para a correta utilização desse cálculo, sendo a
 cor um indicadito da intensidade da classe de ocorrências³.
