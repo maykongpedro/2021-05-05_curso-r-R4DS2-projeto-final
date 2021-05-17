@@ -162,23 +162,14 @@ ano_covid <-
 ano_covid
 
 
+
+source("./R/4-ggplot-grafico-de-evolucao-linhas-area.R")
 plot5 <- 
     ano_covid %>% 
-    ggplot2::ggplot(ggplot2::aes(x = data, y = total_mil)) +
-    ggplot2::geom_line(size = 1, color = "#440164") +
-    ggplot2::geom_point(size = 4, color = "#440164") +
-    ggplot2::geom_area(colour = "black", fill = "#31688e", alpha = .1) +
-    ggplot2::scale_y_continuous(expand = ggplot2::expansion(), limits = c(0, 100)) +
-    ggplot2::scale_x_date(breaks = "months", date_labels = "%b/%y") +
-    ggplot2::labs(x = "", y = "Total de ocorrências (Mil)",
-                  caption = "**Dataviz:** @maykongpedro | **Fonte:** SSP (Dados organizados pela Curso-R)") +
-    ggplot2::ggtitle("Total de ocorrências de crimes dentro do período de um ano no estado de São Paulo") +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(plot.title = ggplot2::element_text(face = "bold", hjust = 0.5),
-                   plot.subtitle = ggplot2::element_text(hjust = 0.5),
-                   axis.line.x = ggplot2::element_line(size = 1),
-                   plot.caption = ggtext::element_markdown(hjust = 1),
-                   plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm")) 
+    grafico_de_evolucao(x = data,
+                        y = total_mil,
+                        titulo = "Total de ocorrências de crimes dentro do período de um ano no estado de São Paulo")
+
 plot5
 
 # percentual de diferença
@@ -246,15 +237,15 @@ plot5_com_notas <-
     
 plot5_com_notas
 
-
-ggplot2::ggsave(
-    plot = plot5_com_notas,
-    "./inst/covid_mes.png",
-    width = 24,
-    height = 15,
-    units = "cm",
-    dpi = 300
-)
+# 
+# ggplot2::ggsave(
+#     plot = plot5_com_notas,
+#     "./inst/covid_mes.png",
+#     width = 24,
+#     height = 15,
+#     units = "cm",
+#     dpi = 300
+# )
 
 
 # Salvar gráficos ---------------------------------------------------------
