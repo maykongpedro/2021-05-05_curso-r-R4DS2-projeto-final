@@ -113,6 +113,55 @@ premissas, sendo esses:
 
 ### Geral - Cidades com maiores taxas de ocorrência por 100mib hab.
 
+``` r
+# Carregar base
+ssp_pivot_categorico_tx <- readr::read_rds("./data/ssp_completo_ponderado.rds")
+
+# Quais são as 20 cidades com mais crimes dentro do histórico?
+ssp_pivot_categorico_tx %>% 
+    dplyr::filter(ano != 2020,
+                  pop >= 100000) %>% 
+    dplyr::group_by(municipio_nome) %>%
+    dplyr::summarise(total_mil = sum(ocorrencias/1000),
+                     pop_mil = mean(pop)/1000) %>% 
+    dplyr::arrange(dplyr::desc(total_mil)) %>%
+    head(20) %>%
+    
+    kableExtra::kable(
+        format = "markdown",
+        col.names = c("Município", 
+                      "Tx de ocorrência por 100 mil hab. (Mil)",
+                      "Média histórica da População(Mil)"),
+        caption = "Fonte: SSP (Dados organizados pela Curso-R) & IBGE",
+        align = "c"
+    ) 
+```
+
+|       Município       | Tx de ocorrência por 100 mil hab. (Mil) | Média histórica da População(Mil) |
+|:---------------------:|:---------------------------------------:|:---------------------------------:|
+|       São Paulo       |                7321.531                 |            11404.5855             |
+|       Campinas        |                 706.633                 |             1100.2687             |
+|       Guarulhos       |                 473.274                 |             1276.0717             |
+|    Ribeirão Preto     |                 397.629                 |             607.9818              |
+|      Santo André      |                 389.398                 |             686.7706              |
+| São Bernardo do Campo |                 369.643                 |             795.7672              |
+|        Osasco         |                 315.288                 |             693.6636              |
+|       Sorocaba        |                 295.831                 |             601.7070              |
+|        Santos         |                 289.602                 |             424.4917              |
+|  São José dos Campos  |                 270.342                 |             641.4852              |
+| São José do Rio Preto |                 268.228                 |             421.6735              |
+|         Bauru         |                 219.286                 |             355.9506              |
+|      Piracicaba       |                 214.608                 |             373.9052              |
+|     Praia Grande      |                 211.114                 |             267.3108              |
+|        Diadema        |                 197.537                 |             398.2279              |
+|        Jundiaí        |                 195.316                 |             372.6142              |
+|        Franca         |                 190.466                 |             329.5417              |
+|      São Vicente      |                 175.179                 |             338.8696              |
+|         Mauá          |                 154.508                 |             427.4037              |
+|        Taubaté        |                 153.032                 |             283.6991              |
+
+Fonte: SSP (Dados organizados pela Curso-R) & IBGE
+
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png)
 
 ## Avaliação de criminalidade durante a quarentena
