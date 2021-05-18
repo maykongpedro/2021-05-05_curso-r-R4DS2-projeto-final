@@ -26,7 +26,7 @@ grafico_de_colunas <- function(db,
         ggplot2::geom_col(ggplot2::aes(x = {{x}}, y = {{y}}, fill = {{preenchimento}})) +
         ggplot2::scale_x_continuous(breaks = breaks_eixo_x) +
         ggplot2::scale_y_continuous(expand = ggplot2::expansion()) +
-        ggplot2::scale_fill_viridis_d(direction = -1) +
+        ggplot2::scale_fill_viridis_d(direction = 1) +
         ggplot2::labs(x = "Ano", y = "Total de ocorrências (Mil)", 
                       fill = tit_legenda, 
                       subtitle = subtitulo,
