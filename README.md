@@ -232,8 +232,8 @@ ano de 2019.
 
 # Conclusões
 
-Apesar de não ser uma análise extremamente complexa,foi possível retirar
-algumas respostas a partir dos dados, como:
+Com essa análise, foi possível retirar algumas respostas a partir dos
+dados, como:
 
 -   comportamento do histórico de ocorrências de crimes
 -   quais as categorias de crimes mais comuns no estado

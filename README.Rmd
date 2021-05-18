@@ -226,7 +226,7 @@ Esse item tem como objetivo mostrar o comportamento do número de ocorrências d
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/covid_mes.png)
 
 # Conclusões
-Apesar de não ser uma análise extremamente complexa,foi possível retirar algumas respostas a partir dos dados, como: 
+Com essa análise, foi possível retirar algumas respostas a partir dos dados, como: 
 
 - comportamento do histórico de ocorrências de crimes
 - quais as categorias de crimes mais comuns no estado
