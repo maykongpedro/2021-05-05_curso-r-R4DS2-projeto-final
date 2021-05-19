@@ -196,7 +196,7 @@ verificada com outros municípios.
 Na mapa² baixo podemos verificar a distribuição espacial das taxas de
 ocorrência por 100mil hab. de todas as cidades com o mínimo de
 habitantes necessário para a correta utilização desse cálculo, sendo a
-cor um indicadito da intensidade da classe de ocorrências³.
+cor um indicadivo da intensidade da classe de ocorrências³.
 
 ![](https://github.com/maykongpedro/2021-05-05_curso-r-R4DS2-projeto-final/blob/master/inst/mapa_geral.png)
 
